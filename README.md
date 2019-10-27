@@ -16,7 +16,7 @@ The code is compatible with python 3.7 + pytorch 1.2. In addition, the following
 pyhocon, plotly, skimage, trimesh, pandas, advertorch, GPUtil, PlyData.
 
 ### Usage
-* To run the training procedure for the robustness to adversarial examples task:  
+* To run the training procedure for robustness to adversarial examples task:  
 	cd ./code <br>
   python training_adv/exp_runner.py --conf ./confs/adv/[mnist_or_cifar]_ours.conf
   <br>
