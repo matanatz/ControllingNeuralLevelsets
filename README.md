@@ -1,4 +1,3 @@
-# ControllingNeuralLevelsets
 # Controlling Neural Levelsets
 
 <p align="center">
