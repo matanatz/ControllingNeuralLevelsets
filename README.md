@@ -5,12 +5,12 @@
 </p>
 
 
-This repository contains an implementation to the Neurips 2019 paper Controlling Neural Levelsets.
+This repository contains an implementation to the Neurips 2019 paper Controlling Neural Level Sets.
 
-PCNN is a novel framework for applying convolutional neural networks to point clouds. The framework consists of two operators: extension and restriction, mapping point cloud functions to volumetric functions and vise-versa. A point cloud convolution is defined by pull-back of the Euclidean volumetric convolution via an extension-restriction mechanism. 
+This paper presents a simple and scalable approach to directly control level sets of a deep neural network. Our method consists of two parts: (i) sampling of the neural level sets, and (ii) relating the samples' positions to the network parameters. The latter is achieved by a \emph{sample network} that is constructed by adding a single fixed linear layer to the original network. In turn, the sample network can be used to incorporate the level set samples into a loss function of interest. 
 
-For more details visit: https://arxiv.org/abs/1803.10091.
+For more details visit: https://arxiv.org/abs/1905.11911.
 
 ### Installation Requirmenets
-The code is compatible with python 3.5 + tensorflow 1.8. In addition, the following packages are required:  
+The code is compatible with python 3.7 + pytorch 1.2. In addition, the following packages are required:  
 pyhocon, h5py.
