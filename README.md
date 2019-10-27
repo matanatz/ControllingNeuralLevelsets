@@ -36,5 +36,13 @@ pyhocon, plotly, skimage, trimesh, pandas, advertorch, GPUtil, PlyData.
 * Training outputs are saved in:  
 	./exps/expname/[timestamp]/
 
+### Citation
+If you find our work useful in your research, please consider citing:
 
+	@article{atzmon2019controlling,
+	  title={Controlling Neural Level Sets},
+	  author={Atzmon, Matan and Haim, Niv and Yariv, Lior and Israelov, Ofer and Maron, Haggai and Lipman, Yaron},
+	  journal={arXiv preprint arXiv:1905.11911},
+	  year={2019}
+	}
 
