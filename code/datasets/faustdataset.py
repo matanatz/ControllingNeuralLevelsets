@@ -26,7 +26,7 @@ class FaustDataSet(data.Dataset):
         for i in range(number_of_batchs):
             batchs.append(shape[i*(shape.shape[0]//number_of_batchs):(i+1)*(shape.shape[0]//number_of_batchs)])
 
-            self.batchs = batchs
+        self.batchs = batchs
 
     def __getitem__(self, index):
         point_set = torch.from_numpy(self.batchs[index])
