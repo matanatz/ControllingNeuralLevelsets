@@ -13,7 +13,7 @@ For more details visit: https://arxiv.org/abs/1905.11911.
 
 ### Installation Requirmenets
 The code is compatible with python 3.7 + pytorch 1.2. In addition, the following packages are required:  
-pyhocon, plotly, skimage, trimesh, pandas, advertorch, GPUtil, PlyData.
+pyhocon, plotly, skimage, trimesh, pandas, advertorch, GPUtil, plyfile.
 
 ### Usage
 * To run the training procedure for robustness to adversarial examples task:  
