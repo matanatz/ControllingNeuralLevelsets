@@ -90,10 +90,6 @@ class TrainRunner():
 
         logging.info('shell command : {0}'.format(' '.join(sys.argv)))
 
-        # mnist_train = datasets.MNIST(data_dir, train=True, download=True, transform=transform)
-        # mnist_test = datasets.MNIST(data_dir, train=False, download=True, transform=transform)
-        # train_loader = torch.utils.data.DataLoader(mnist_train, batch_size=batch_size, shuffle=True, pin_memory=True)
-        # test_loader = torch.utils.data.DataLoader(mnist_test, batch_size=batch_size, shuffle=False, pin_memory=True)
         debug_conf = {}
         debug_conf['transforms_prop'] = [str(self.conf.get_config('train.trans_props'))]
         debug_conf['transforms'] = [str(self.conf.get_list('train.transforms'))]
@@ -293,32 +289,8 @@ class TrainRunner():
         correct_ind = self.network.get_correct(network_output, target=target)
         correct = correct_ind.sum().item()
 
-        #correct_ind = self.network.get_correct(network_output[img_correct_ind], target=target[img_correct_ind])
         seen_examples = target.shape[0]
-
-        # input = utils.get_cuda_ifavailable(data[0])
-        # target = utils.get_cuda_ifavailable(data[1])
-        # kwargs['loss_fn'] = utils.get_class(kwargs['loss_fn'])(batch_size=self.batch_size, **kwargs['loss_fn_prop'])
-        # kwargs.pop('loss_fn_prop', None)
-        #
-        # if (is_whitebox):
-        #     model = self.network.model
-        # else:
-        #     model = self.blackbox_network.model
-        # model_adver = copy.deepcopy(model)
-        # model_evaluate = copy.deepcopy(self.network.model)
-        # #img_correct_ind = self.network.get_correct(model(input),target=target)
-        # model_adver.zero_grad()
-        # model_evaluate.zero_grad()
-        # adversary = utils.get_class(attack)(model_adver, **kwargs)
-        # adv_samples,_ = adversary.perturb(input, target)
-        # network_output = model_evaluate(adv_samples)
-        #
-        # correct_ind = self.network.get_correct(network_output,target=target)
-        # correct = correct_ind.sum().item()
-        # #correct_ind = self.network.get_correct(network_output[img_correct_ind],target=target[img_correct_ind])
-        # seen_examples = target.shape[0]
-
+        
         if (self.conf.get_bool('train.adv_plot_loss.enabled')): #and  correct < seen_examples and (~correct_ind).any()):
 
             with torch.no_grad():
@@ -358,19 +330,6 @@ class TrainRunner():
 
                 for i,x,y,img in zip(range(num),t[:num],val_pnts[:num],pnts[:num]):
                     trace = go.Scatter(x=x.cpu().numpy(), y=y.cpu().numpy(), mode='lines', name='pgd_{0}'.format(i))
-
-                    # fig_images = make_subplots(10,10)
-                    # for index,curr_img in enumerate(img):
-                    #     trace_img = go.Scatter(
-                    #                         x=[0, img_width * scale_factor],
-                    #                         y=[0, img_height * scale_factor],
-                    #                         mode="markers",
-                    #                         marker_opacity=0)
-                    #     fig_images.add_trace(trace_img,index // 10 + 1, index % 10 + 1)
-                    #     fig_images.update_xaxes(visible=False, range=[0, img_width * scale_factor],row=index//10 + 1,col=index%10 + 1)
-                    #     fig_images.update_yaxes(visible=False, range=[0, img_height * scale_factor], scaleanchor="x",row=index//10  +1,col=index%10 + 1)
-
-
                     fig.add_trace(trace,i+1,1)
                     gal = gallery(img[np.linspace(0, 99, 10)].cpu().numpy().transpose([0, 2, 3, 1]), 5)
                     plt.imshow(gal.squeeze(), cmap='gray', vmin=0, vmax=1)
