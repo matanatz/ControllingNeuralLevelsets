@@ -16,25 +16,43 @@ The code is compatible with python 3.7 + pytorch 1.2. In addition, the following
 pyhocon, plotly, skimage, trimesh, pandas, advertorch, GPUtil, plyfile.
 
 ### Usage
-* To run the training procedure for robustness to adversarial examples task:  
-	cd ./code <br>
-  python training_adv/exp_runner.py --conf ./confs/adv/[mnist_or_cifar]_ours.conf
-  <br>
-  jupyter notebook summerizing the results: ../monitoring/monitor_exps.ipynb
+#### Robustness to adversarial examples: 
+```
+cd ./code
+python training_adv/exp_runner.py --conf ./confs/adv/[mnist_or_cifar]_ours.conf
+```
 
-* Surface reconstruciton:  
-  - download the faust dataset from http://faust.is.tue.mpg.de/
+
+jupyter notebook summerizing the results:
+  ```
+../monitoring/monitor_exps.ipynb
+  ```
+
+
+#### Surface reconstruciton:  
+  - Download the faust dataset from http://faust.is.tue.mpg.de/
   
-  - according to downloaded path, adjust the variables in preprocess/faust.py
+  - According to downloaded path, adjust the variables in preprocess/faust.py
   
-  - run the preprocess code: python preprocess/faust.py
+  - Preprocessing faust dataset:
+  ```
+  python preprocess/faust.py
+  ```
   
-  - run the training procedure for the surface reconstruciton task:python training_recon/exp_runner.py --conf ./confs/recon/default.conf
+  - Training procedure for the surface reconstruciton task:
+  ```
+  python training_recon/exp_runner.py --conf ./confs/recon/default.conf
+  ```
   
-  - run postprocess of the learned implicit representation, using the marching cubes algorithm: python training_recon/post_plot_surface.py
+  - Postprocessing of the learned implicit representation, using the marching cubes algorithm (make sure to adjust varairables in file):
+  ```
+  python training_recon/post_plot_surface.py
+  ```
 
 * Training outputs are saved in:  
-	./exps/expname/[timestamp]/
+```
+../exps/expname/[timestamp]/
+```
 
 ### Citation
 If you find our work useful in your research, please consider citing:
