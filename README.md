@@ -49,7 +49,7 @@ jupyter notebook summerizing the results:
   python training_recon/post_plot_surface.py
   ```
 
-* Training outputs are saved in:  
+* Outputs are saved in:  
 ```
 ../exps/expname/[timestamp]/
 ```
