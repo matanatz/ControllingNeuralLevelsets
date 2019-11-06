@@ -1,4 +1,5 @@
-
+import sys
+sys.path.append('../code')
 import numpy as np
 import os
 import utils.general as utils
