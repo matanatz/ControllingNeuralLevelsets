@@ -76,7 +76,7 @@ class TrainRunner():
                                                       num_workers=1)
 
         self.network = ManifoldNetwork(self.conf.get_config('network'))
-        self.network.cuda()
+        self.network = utils.get_cuda_ifavailable(self.network)
         self.loss = utils.get_class(self.conf.get_string('network.loss.loss_type'))(**self.conf.get_config('network.loss.properties'))
 
     def run(self):
@@ -112,7 +112,7 @@ class TrainRunner():
 
             for data_index,data in enumerate(self.dataloader):
                 points = data
-                points = points.cuda()[0]
+                points = utils.get_cuda_ifavailable(points)[0]
 
                 outputs = self.network(points)
                 loss = self.loss(zerolevelset_points = outputs['zerolevelset_sample_layer'],

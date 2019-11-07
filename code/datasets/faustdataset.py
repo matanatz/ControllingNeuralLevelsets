@@ -37,14 +37,13 @@ class FaustDataSet(data.Dataset):
     def __len__(self):
         return len(self.batchs)
 if __name__ == '__main__':
-    ds = FaustDataSet(data_folder = concat_home_dir('datasets/faust/processed_100k_nofps'),
+    ds = FaustDataSet(data_folder = concat_home_dir('datasets/faust/processed/train'),
                       number_of_batchs= 1,
-                      shape_index = 0,
-                      is_train = True)
+                      shape_index = 0)
 
     dataloader = torch.utils.data.DataLoader(ds, batch_size=1,
                                              shuffle=True, num_workers=1)
     print (len(dataloader))
     for data in dataloader:
         print (data.shape)
-        plot_threed_scatter(data.squeeze(),'.',0,0)
+        plot_threed_scatter(data.squeeze(),'.',0,0,True)

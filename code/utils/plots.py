@@ -33,7 +33,7 @@ def get_threed_scatter_trace(points,caption = None,colorscale = None,color = Non
 
     return trace
 
-def plot_threed_scatter(points,path,epoch,in_epoch):
+def plot_threed_scatter(points,path,epoch,in_epoch,auto_open=False):
     trace = get_threed_scatter_trace(points)
     layout = go.Layout(width=1200, height=1200, scene=dict(xaxis=dict(range=[-2, 2], autorange=False),
                                                            yaxis=dict(range=[-2, 2], autorange=False),
@@ -43,7 +43,7 @@ def plot_threed_scatter(points,path,epoch,in_epoch):
     fig1 = go.Figure(data=[trace], layout=layout)
 
     filename = '{0}/scatter_iteration_{1}_{2}.html'.format(path, epoch, in_epoch)
-    offline.plot(fig1, filename=filename, auto_open=False)
+    offline.plot(fig1, filename=filename, auto_open=auto_open)
 
 
 def plot_manifold(points,decoder,path,epoch,in_epoch,resolution,mc_value,is_uniform_grid,verbose,save_html):
@@ -54,7 +54,7 @@ def plot_manifold(points,decoder,path,epoch,in_epoch,resolution,mc_value,is_unif
 
     if (not os.path.exists(filename)):
         decoder.eval()
-        pnts_val = decoder(points.cuda()).detach()
+        pnts_val = decoder(utils.get_cuda_ifavailable(points)).detach()
         caption = ["decoder : {0}".format(val.abs().mean().item()) for val in pnts_val.squeeze()]
         trace_pnts = get_threed_scatter_trace(points,caption=caption)
         trace_manifold = []
@@ -233,7 +233,7 @@ def get_grid_uniform(points,resolution):
     z = x
 
     xx, yy, zz = np.meshgrid(x, y, z)
-    grid_points = torch.tensor(np.vstack([xx.ravel(), yy.ravel(), zz.ravel()]).T, dtype=torch.float).cuda()
+    grid_points = utils.get_cuda_ifavailable(torch.tensor(np.vstack([xx.ravel(), yy.ravel(), zz.ravel()]).T, dtype=torch.float))
 
     return {"grid_points": grid_points,
             "shortest_axis_length": 2.4,
