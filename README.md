@@ -44,7 +44,7 @@ jupyter notebook summerizing the results:
   python training_recon/exp_runner.py --conf ./confs/recon/default.conf
   ```
   
-  - Generating meshes from the learned implicit representation, using the marching cubes algorithm (make sure to adjust varairables in file):
+  - Generating meshes from the learned implicit representation, using the marching cubes algorithm (make sure to adjust variables in file):
   ```
   python training_recon/post_plot_surface.py
   ```
