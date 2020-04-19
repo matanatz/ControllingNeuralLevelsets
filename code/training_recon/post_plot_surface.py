@@ -65,10 +65,10 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('--expname', type=str, default="lambda3_shape6_withzero", help='experiement name')
+    parser.add_argument('--expname', type=str, default="recon", help='experiement name')
     parser.add_argument('--epoch', type=int, default=5500)
     parser.add_argument('--shape_index', type=int, default=0)
-    parser.add_argument('--timestamp', type=str, default='2020_04_18_18_58_21')
+    parser.add_argument('--timestamp', type=str, default='latest')
     parser.add_argument('--gpu', type=int, default=0, help='GPU to use [default: GPU 0]')
     parser.add_argument('--res', type=int, default=500, help='GPU to use [default: GPU 0]')
 
