@@ -104,17 +104,17 @@ class ReconDistanceLoss(nn.Module):
                 manifold_pnts_pred,
                 loss_lambda):
 
-        # dist_matrix = utils.get_dist_matrix(torch.cat([zerolevelset_points,genlevelset_points],dim=0),pc_input)
-        # dist_to_pc = dist_matrix.min(dim=1)[0]
-        # first_term = torch.abs(torch.sqrt(dist_to_pc.abs() + 1.0e-6) - torch.cat([zerolevelset_eval,gen_points_eval],dim=0).abs().sum(dim=-1))
-        #
-        # second_term = manifold_pnts_pred.abs()
-
-        dist_matrix = utils.get_dist_matrix(torch.cat([zerolevelset_points,genlevelset_points],dim=0),pc_input)
+        if not zerolevelset_points is None:
+            proj_pnts = torch.cat([zerolevelset_points, genlevelset_points], dim=0)
+            proj_eval = torch.cat([zerolevelset_eval,gen_points_eval],dim=0)
+        else:
+            proj_pnts = genlevelset_points
+            proj_eval = gen_points_eval
+        dist_matrix = utils.get_dist_matrix(proj_pnts,pc_input)
         dist_to_pc = dist_matrix.min(dim=1)[0]
-        first_term = torch.abs(dist_to_pc - torch.cat([zerolevelset_eval,gen_points_eval],dim=0).pow(2).sum(dim=-1))
+        first_term = torch.abs(torch.sqrt(dist_to_pc.abs() + 1.0e-7) - proj_eval.abs().sum(dim=-1))
 
-        second_term = manifold_pnts_pred.pow(2).sum(dim=-1)
+        second_term = manifold_pnts_pred.abs().sum(dim=-1)
 
 
         if (loss_lambda is None):

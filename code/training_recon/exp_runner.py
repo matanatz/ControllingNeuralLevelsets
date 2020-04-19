@@ -9,11 +9,11 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--number_of_batchs', type=int, default=10, help='input batch size')
-    parser.add_argument('--nepoch', type=int, default=10000, help='number of epochs to train for')
+    parser.add_argument('--nepoch', type=int, default=5000, help='number of epochs to train for')
     parser.add_argument('--conf', type=str, default='./confs/recon/default.conf')
-    parser.add_argument('--expname', type=str, default='debug')
-    parser.add_argument('--gpu', type=int, default=0, help='GPU to use [default: GPU 0]')
-    parser.add_argument('--shape_index', type=int, default=0, help='GPU to use [default: GPU 0]')
+    parser.add_argument('--expname', type=str, default='recon')
+    parser.add_argument('--gpu', type=int, default=3, help='GPU to use [default: GPU 0]')
+    parser.add_argument('--shape_index', type=int, default=0, help='faust shape index')
 
 
     opt = parser.parse_args()

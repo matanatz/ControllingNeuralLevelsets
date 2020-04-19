@@ -8,6 +8,7 @@ import os
 import trimesh
 import utils.general as utils
 import matplotlib.pyplot as plt
+from tqdm import tqdm
 
 def get_threed_scatter_trace(points,caption = None,colorscale = None,color = None):
 
@@ -102,9 +103,7 @@ def get_surface_trace(points,decoder,resolution,mc_value,is_uniform,color_index,
 
     z = []
 
-    for i,pnts in enumerate(torch.split(grid['grid_points'],100000,dim=0)):
-        if (verbose):
-            print ('{0}'.format(i/(grid['grid_points'].shape[0] // 100000) * 100))
+    for pnts in tqdm(torch.split(grid['grid_points'],100000,dim=0)):
         z.append(decoder(pnts).detach().cpu().numpy())
     z = np.concatenate(z,axis=0)
 

@@ -34,10 +34,11 @@ class Decoder(nn.Module):
             lin = nn.Conv1d(dims[l], out_dim,1)
 
             if l == self.num_layers - 2:
-                 torch.nn.init.normal_(lin.weight, mean=1.0, std=0.001)
-                 torch.nn.init.constant_(lin.bias, -1)
+                torch.nn.init.normal_(lin.weight, mean=2 * np.sqrt(np.pi) / np.sqrt(dims[l]), std=0.0001)
+                torch.nn.init.constant_(lin.bias, -1)
             else:
-                 torch.nn.init.constant_(lin.bias,0)
+                torch.nn.init.constant_(lin.bias,0)
+                torch.nn.init.normal_(lin.weight, 0.0, np.sqrt(2) / np.sqrt(out_dim))
             setattr(self, "lin" + str(l), lin)
 
         self.use_activation = not activation == 'None'

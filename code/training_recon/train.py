@@ -82,32 +82,21 @@ class TrainRunner():
     def run(self):
         print ("runnnig")
 
-        optimizer = torch.optim.Adam(self.network.parameters(),lr=1.0e-3)
-        scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones=[500, 1500, 3500, 5500], gamma=0.5)
-        max_lambda = 5
-
-        loss_lambda_vals = np.linspace(1 , max_lambda, 1)
-                    #self.lr_schedules[0].get_learning_rate(0))
+        optimizer = torch.optim.Adam(self.network.parameters(),lr=1.0e-4)
 
         for epoch in range(1,self.nepochs + 1):
 
 
-            if (epoch-1) % 100 == 0:
-                torch.save(self.network, os.path.join(self.model_path, 'network_{0}_{1}.pt'.format(self.expname, epoch-1)))
+            if (epoch) % 100 == 0 and epoch > 1:
+                torch.save(self.network, os.path.join(self.model_path, 'network_{0}_{1}.pt'.format(self.expname, epoch)))
 
                 pnts = next(iter(self.dataloader))
                 plot_manifold(points=pnts[0],
                              decoder=self.network.decoder,
                              path=self.plots_dir,
-                             epoch=epoch - 1,
+                             epoch=epoch,
                              in_epoch=0,
                              **self.conf.get_config('plot'))
-
-
-            if (epoch >= loss_lambda_vals.shape[0]):
-                loss_lambda = loss_lambda_vals[-1]
-            else:
-                loss_lambda = loss_lambda_vals[epoch - 1]
 
 
             for data_index,data in enumerate(self.dataloader):
@@ -121,12 +110,12 @@ class TrainRunner():
                                  zerolevelset_eval = outputs['zerolevelset_proj_result']['network_eval_on_levelset_points'],
                                  gen_points_eval = outputs['genlevelset_proj_result']['network_eval_on_levelset_points'],
                                  manifold_pnts_pred = outputs['manifold_pnts_pred'],
-                                 loss_lambda = loss_lambda)
+                                 loss_lambda = None)
 
                 optimizer.zero_grad()
                 loss['loss'].backward()
                 optimizer.step()
-                scheduler.step()
+                #scheduler.step()
                 print ("expname : {0}".format(self.expname))
                 print ("timestamp: {0} , "
                        "epoch : {1}, data_index : {2} , "

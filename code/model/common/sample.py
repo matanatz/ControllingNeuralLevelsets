@@ -24,8 +24,6 @@ class NormalAroundPoint(Sampler):
         dists = [torch.distributions.MultivariateNormal(utils.get_cuda_ifavailable(torch.zeros(dim)),
                                                       utils.get_cuda_ifavailable(torch.diag(torch.Tensor([sigma**2]*dim))))
                  for sigma in self.sigmas]
-        # return (pc_input.unsqueeze(1).repeat(1,self.num_points_per_sample,1) +
-        #         torch.cat([dist.sample([pc_input.shape[0],1]) for dist in dists],dim=1)).reshape(-1,dim)
         return pc_input.repeat(self.num_points_per_sample,1) + torch.cat([dist.sample([pc_input.shape[0]]) for dist in dists],dim=0)
 
 class NormalAroundPointWithUniform(NormalAroundPoint):
