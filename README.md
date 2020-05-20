@@ -57,10 +57,11 @@ jupyter notebook summerizing the results:
 ### Citation
 If you find our work useful in your research, please consider citing:
 
-	@article{atzmon2019controlling,
-	  title={Controlling Neural Level Sets},
+	@inproceedings{atzmon2019controlling,
+	  title={Controlling neural level sets},
 	  author={Atzmon, Matan and Haim, Niv and Yariv, Lior and Israelov, Ofer and Maron, Haggai and Lipman, Yaron},
-	  journal={arXiv preprint arXiv:1905.11911},
+	  booktitle={Advances in Neural Information Processing Systems},
+	  pages={2032--2041},
 	  year={2019}
 	}
 
